@@ -46,11 +46,11 @@ public class C206_CaseStudyTest {
 		assertEquals("Test that Order arraylist size is 1", 1, orderList.size());
 		assertSame("Test that Order is added", o1, orderList.get(0));
 
-		// Add another item. test The size of the list is 2? - normal
-		// The item just added is as same as the second item of the list
+		// Add another order. test The size of the list is 2? - normal
+		// The order just added is as same as the second order of the list
 		C206_CaseStudyTest.addOrder(orderList, o2);
-		assertEquals("Test that Chromebook arraylist size is 2", 2, orderList.size());
-		assertSame("Test that Chromebook is added", o2, orderList.get(1));
+		assertEquals("Test that Order arraylist size is 2", 2, orderList.size());
+		assertSame("Test that Order is added", o2, orderList.get(1));
 	}
 
 	private static void addOrder(ArrayList<Order> orderList2, Order o12) {
