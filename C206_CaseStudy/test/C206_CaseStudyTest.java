@@ -53,9 +53,5 @@ public class C206_CaseStudyTest {
 		assertSame("Test that Order is added", o2, orderList.get(1));
 	}
 
-	private static void addOrder(ArrayList<Order> orderList2, Order o12) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
