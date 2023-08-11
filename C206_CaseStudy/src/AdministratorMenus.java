@@ -18,7 +18,7 @@ public class AdministratorMenus {
         int option = 0;
 
         while (option != OPTION_QUIT) {
-            AdministratorMenus.menu();
+            AdministratorMenus.Adminmenu();
             option = Helper.readInt("Enter an option > ");
 
             if (option == 1) {
@@ -180,8 +180,8 @@ public class AdministratorMenus {
     
 		
 
-    public static void menu() {
-        AdministratorMenus.setHeader("RESOURCE CENTRE APP");
+    public static void Adminmenu() {
+        AdministratorMenus.setHeader("ADMIN SYSTEM");
         System.out.println("1. Display Schools");
         System.out.println("2. Add School");
         System.out.println("3. Delete School");
