@@ -13,7 +13,10 @@ public class AdministratorMenusTest {
 	private Vendor v1;
 	private Vendor v2;
 	private Vendor v3;
-	
+	private School S1;
+	private School S2;
+	 
+	private ArrayList<School> schoolList;
 	
 	private ArrayList<Vendor> vendorList;
 	
@@ -23,6 +26,15 @@ public class AdministratorMenusTest {
 
 	@Before
 	public void setUp() throws Exception {
+		// prepare test data
+		  
+		  
+		schoolList= new ArrayList<School>();
+		S1 = new School("1", "1", 1);
+		S2 = new School("2", "2", 2);
+		schoolList.add(S1);
+		schoolList.add(S2);
+		schoolList = new ArrayList<School>();
 		v1 = new Vendor("Sam", 12345678, "#05-476", "Chinese Food");
 		v2 = new Vendor("John", 10002000, "#06-432", "Japanese Cuisine");
 		v3 = new Vendor("Alex", 33332222, "#07-856", "Malay Specialty");
@@ -73,7 +85,7 @@ public class AdministratorMenusTest {
 		allVendor= AdministratorMenus.retrieveAllVendors(vendorList);
 		testOutput = String.format("%-10s %-30d %-10s %-10s\n", "Sam", 12345678, "#05-476", "Chinese Food");
 	    testOutput += String.format("%-10s %-30d %-10s %-10s\n", "John", 10002000, "#06-432", "Japanese Cuisine");
-		// Test that the details are displayed correctly 
+		// Test that the details are displayed correctly S
 		assertEquals("Test that the display is correct.", testOutput, allVendor);
 	}
 	
@@ -104,6 +116,59 @@ public class AdministratorMenusTest {
 		
 		
 	}
+	//Joel
+	@Test
+	 public void testAddSchool() {
+	  
+	  assertNotNull("Check if there is valid School arraylist to add to", schoolList);
+	  AdministratorMenus.addSchool(schoolList,S1);
+	  assertEquals("Check that Camcorder arraylist size is 1", 1, schoolList.size());
+	  assertSame("Check that School is added", S1, schoolList.get(0));
+	  
+	  
+	  AdministratorMenus.addSchool(schoolList,S2);
+	  assertEquals("Check that Camcorder arraylist size is 2", 2, schoolList.size());
+	  assertSame("Check that Camcorder is added", S2, schoolList.get(1));
+	}
+	 @Test
+	 public void testRetrieveAllSchools() {
+	  // Test if Item list is not null but empty -boundary
+	  assertNotNull("Test if there is valid Camcorder arraylist to retrieve item", schoolList);
+	  
+	  //test if the list of camcorders retrieved from the SourceCentre is empty - boundary
+	  String allSchools= AdministratorMenus.retrieveAllSchools(schoolList);
+	  String testOutput = "";
+	  assertEquals("Check that ViewAllCamcorderlist", testOutput, allSchools);
+	  
+	  //Given an empty list, after adding 2 items, test if the size of the list is 2 - normal
+	  AdministratorMenus.addSchool(schoolList, S1);
+	  AdministratorMenus.addSchool(schoolList, S2);
+	  assertEquals("Test that Camcorder arraylist size is 2", 2, schoolList.size());
+	  
+	  //test if the expected output string same as the list of camcorders retrieved from the SourceCentre 
+	  allSchools= AdministratorMenus.retrieveAllSchools(schoolList);
+	  testOutput = String.format("%-10s %-30s %-10s\n", "1", "1", 1);
+	  testOutput += String.format("%-10s %-30s %-10s\n", "2", "2", 2);
+	 
+	  assertEquals("Test that ViewAllCamcorderlist", testOutput, allSchools);
+	  
+	 }
+	 @Test
+	     public void testDeleteSchool() {
+	         // Ensure both schools are initially in the list
+	   AdministratorMenus.addSchool(schoolList, S1);
+	   AdministratorMenus.addSchool(schoolList, S2);
+	         assertEquals("Check initial size of schoolList", 2, schoolList.size());
+	         
+	         // Delete the first school (S1)
+	         boolean isDeleted = AdministratorMenus.deleteSchool(schoolList, S1.getSchoolId());
+	         assertTrue("Check if the school was successfully deleted", isDeleted);
+	         assertEquals("Check that schoolList size is reduced by 1", 1, schoolList.size());
+	         
+	         // Verify that the remaining school is S2
+	         assertEquals("Check if the correct school remains", S2, schoolList.get(0));
+	     }
+	 
 	
 
 	@After
