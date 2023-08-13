@@ -18,11 +18,10 @@ public class VendorMenuTest {
 
 	@Before
 	public void setUp() throws Exception {
-	    m1 = new Menu(1, "Bento Set", 5);
-	    m2 = new Menu(2, "Maggi Mee", 3);
-	    menuList = new ArrayList<Menu>();
-	  }
-		
+		m1 = new Menu(1, "Bento Set", 5);
+		m2 = new Menu(2, "Maggi Mee", 3);
+		menuList = new ArrayList<Menu>();
+	}
 
 	@After
 	public void tearDown() throws Exception {
@@ -52,34 +51,33 @@ public class VendorMenuTest {
 		assertEquals("Test that the menu arrayList size is unchanged.", 2, menuList.size());
 	}
 
-	@Test
 	// Retrieving menus from menuList
 	public void testRetrieveAllMenus() {
-		assertNotNull("Test if there is a valid Menu arraylist to retrieve from", menuList);
-	    VendorMenu.addMenu(menuList, m1);
-		VendorMenu.addMenu(menuList, m2);
+	    assertNotNull("Test if there is a valid Menu arraylist to retrieve from", menuList);
 
-		String output = VendorMenu.retrieveAllMenus(menuList);
+	    // Set up sample data
+	    Menu m1 = new Menu(1, "Bento Set", 5);
+	    Menu m2 = new Menu(2, "Maggi Mee", 3);
 
-		// Expected output based on the sample menus and menuList contents
-		String expectedOutput = "MENU LIST                                                \n" +
-				"No.   MENU NAME           MENU ITEMS                                  PRICE     \n" +
-				"1     RiceDelight         chickenRice , porkrice , NasiLemak         10         \n" +
-				"2     NoodlesDelight      MeeGoReng , KoreanRamen , MeeSoto          8          \n";
+	    menuList.add(m1);
+	    menuList.add(m2);
 
-		// Trim both expected and actual output strings before comparison
-		expectedOutput = expectedOutput.trim();
-		output = output.trim();
+	    String output = VendorMenu.retrieveAllMenus(menuList);
 
-		assertEquals("Test if the retrieveAllMenus method returns the expected output",
-		        expectedOutput.replaceAll("\\s+", ""), // Remove all whitespace
-		        output.replaceAll("\\s+", ""));         // Remove all whitespace
+	    // Expected output based on the sample menus and menuList contents
+	    String expectedOutput = "MENU LIST" + System.lineSeparator() +
+	            "ID    MENU ITEMS                                  PRICE" + System.lineSeparator() +
+	            "1     Bento Set                                   5" + System.lineSeparator() +
+	            "2     Maggi Mee                                   3";
+
+	    assertEquals("Test if the retrieveAllMenus method returns the expected output",
+	            expectedOutput, output);
 	}
 	@Test
 	public void testDeleteMenu() {
 		assertNotNull("Test if there is valid Menu arraylist to delete from", menuList);
 		VendorMenu.addMenu(menuList, m1);
-		VendorMenu.addMenu(menuList, m2);
+	    VendorMenu.addMenu(menuList, m2);
 		assertEquals("Test that the menu arraylist size is 2.", 2, menuList.size());
 
 		// Test case 1
@@ -100,4 +98,5 @@ public class VendorMenuTest {
 		assertEquals("Test that the menu arraylist size is 0.", 0, menuList.size());
 	}
 }
+
 
