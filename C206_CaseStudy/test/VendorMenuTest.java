@@ -77,7 +77,7 @@ public class VendorMenuTest {
 	public void testDeleteMenu() {
 		assertNotNull("Test if there is valid Menu arraylist to delete from", menuList);
 		VendorMenu.addMenu(menuList, m1);
-	    VendorMenu.addMenu(menuList, m2);
+		VendorMenu.addMenu(menuList, m2);
 		assertEquals("Test that the menu arraylist size is 2.", 2, menuList.size());
 
 		// Test case 1
@@ -98,5 +98,6 @@ public class VendorMenuTest {
 		assertEquals("Test that the menu arraylist size is 0.", 0, menuList.size());
 	}
 }
+
 
 
