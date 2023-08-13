@@ -51,28 +51,27 @@ public class VendorMenuTest {
 		assertEquals("Test that the menu arrayList size is unchanged.", 2, menuList.size());
 	}
 
+	@Test
+
 	// Retrieving menus from menuList
 	public void testRetrieveAllMenus() {
-	    assertNotNull("Test if there is a valid Menu arraylist to retrieve from", menuList);
+		assertNotNull("Test if there is a valid Menu arraylist to retrieve from", menuList);
 
-	    // Set up sample data
-	    Menu m1 = new Menu(1, "Bento Set", 5);
-	    Menu m2 = new Menu(2, "Maggi Mee", 3);
+		// Set up sample data
+		Menu m1 = new Menu(1, "Bento Set", 5);
+		Menu m2 = new Menu(2, "Maggi Mee", 3);
 
-	    menuList.add(m1);
-	    menuList.add(m2);
+		menuList.add(m1);
+		menuList.add(m2);
 
-	    String output = VendorMenu.retrieveAllMenus(menuList);
+		String output = VendorMenu.retrieveAllMenus(menuList);
 
-	    // Expected output based on the sample menus and menuList contents
-	    String expectedOutput = "MENU LIST" + System.lineSeparator() +
-	            "ID    MENU ITEMS                                  PRICE" + System.lineSeparator() +
-	            "1     Bento Set                                   5" + System.lineSeparator() +
-	            "2     Maggi Mee                                   3";
-
-	    assertEquals("Test if the retrieveAllMenus method returns the expected output",
-	            expectedOutput, output);
+		// Expected output based on the sample menus and menuList contents
+		String expectedOutput = "MENU LIST" + System.lineSeparator() + "ID    MENU ITEMS    PRICE"
+				+ System.lineSeparator() + "1     Bento Set     5" + System.lineSeparator() + "2     Maggi Mee     3";
+		assertEquals("Test if the retrieveAllMenus method returns the expected output", expectedOutput, output);
 	}
+
 	@Test
 	public void testDeleteMenu() {
 		assertNotNull("Test if there is valid Menu arraylist to delete from", menuList);
@@ -88,8 +87,8 @@ public class VendorMenuTest {
 		// Test case 2
 		// Delete non-existent menu
 		VendorMenu.deleteMenu(menuList, 3);
-		assertEquals("Test that menuList size is unchanged after trying to delete non-existent menu",
-				1, menuList.size());
+		assertEquals("Test that menuList size is unchanged after trying to delete non-existent menu", 1,
+				menuList.size());
 
 		// Test case 3
 		// Delete last menu in the list
