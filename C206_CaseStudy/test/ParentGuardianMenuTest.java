@@ -13,6 +13,7 @@ public class ParentGuardianMenuTest {
  private Order o2;
  private Order o3;
  private ArrayList<Order> orderList;
+ private ArrayList<Payment> paymentList;
 
  public ParentGuardianMenuTest() {
   super();
@@ -24,7 +25,9 @@ public class ParentGuardianMenuTest {
   o2 = new Order("14/8/2023","Maggi Mee", 20);
   o3 = new Order("","",0);
   orderList = new ArrayList<Order>();
- }
+  paymentList = new ArrayList<Payment>(); 
+ } 
+ 
 
  @Test
  public void testAddOrder() {
@@ -97,6 +100,61 @@ public class ParentGuardianMenuTest {
   ParentGuardianMenu.deleteOrder(orderList, 20);
   assertEquals("Test that the order arraylist size is 0.", 0, orderList.size());
  }
+ // Yu Bin
+ @Test 
+ public void testAddPayment() { 
+     assertNotNull("Check if there is a valid Payment arraylist to add to", paymentList); 
+
+     Payment payment1 = new Payment("PM1", "John Stones", "Jurong Secondary School", 1000.00); 
+
+     // Simulate adding a payment directly to the paymentList 
+     paymentList.add(payment1); 
+
+     assertEquals("Check that Payment arraylist size is 1", 1, paymentList.size()); 
+     assertSame("Check that Payment is added", payment1, paymentList.get(0)); 
+ } 
+
+
+ @Test 
+ public void testRetrieveAllPayments() { 
+     assertNotNull("Test if there is a valid Payment arraylist to retrieve from", paymentList); 
+
+     String allPayments = ParentGuardianMenu.retrieveAllPayments(paymentList); 
+     String testOutput = ""; 
+
+     assertEquals("Check that ViewAllPaymentList is empty", testOutput, allPayments); 
+
+     Payment payment1 = new Payment("PM1", "John Stones", "Jurong Secondary School", 1000.00); 
+     Payment payment2 = new Payment("PM2", "Jane Doe", "Central High School", 1500.00); 
+
+     paymentList.add(payment1); // Add payment1 to the list 
+     paymentList.add(payment2); // Add payment2 to the list 
+
+     assertEquals("Test that Payment arraylist size is 2", 2, paymentList.size()); 
+
+     allPayments = ParentGuardianMenu.retrieveAllPayments(paymentList); 
+     testOutput = String.format("%-10s %-20s %-30s %-10.2f \n", "PM1", "John Stones", "Jurong Secondary School", 1000.00); 
+     testOutput += String.format("%-10s %-20s %-30s %-10.2f \n", "PM2", "Jane Doe", "Central High School", 1500.00); 
+
+     assertEquals("Test that ViewAllPaymentList matches", testOutput, allPayments); 
+ } 
+
+ @Test 
+ public void testDeletePayment() { 
+     assertNotNull("Test if there is a valid Payment arraylist to delete from", paymentList); 
+
+     Payment payment1 = new Payment("PM1", "John Stones", "Jurong Secondary School", 1000.00); 
+     Payment payment2 = new Payment("PM2", "Jane Doe", "Central High School", 1500.00); 
+
+     paymentList.add(payment1); // Add payment1 to the list 
+     paymentList.add(payment2); // Add payment2 to the list 
+
+     assertEquals("Check that Payment arraylist size is 2", 2, paymentList.size()); 
+
+     ParentGuardianMenu.deletePayment(paymentList, "PM1"); 
+     assertEquals("Check that Payment arraylist size is 1 after deleting", 1, paymentList.size()); 
+     assertSame("Check that correct Payment remains", payment2, paymentList.get(0)); 
+ } 
 
  @After
  public void tearDown() throws Exception {

@@ -1,4 +1,4 @@
-// Yu Bin
+//Yu Bin
 public class Payment {
 	private String paymentID;
 	private String name;
