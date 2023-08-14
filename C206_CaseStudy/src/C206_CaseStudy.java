@@ -17,6 +17,10 @@ public class C206_CaseStudy {
 		ArrayList<Menu> menuList = new ArrayList<Menu>();
         menuList.add(new Menu(1, "Bento Set", 5));
         menuList.add(new Menu(2, "Maggi Mee", 3));
+        User newUser1 = new User("John", "password1", "John Doe", "91234567");
+		User newUser2 = new User("Jane", "password2", "Jane Doe", "97654321");
+		userList.add(newUser1);
+		userList.add(newUser2);
 
 		School school1 = new School("School 1", "Jurong Secondary School", 1);
 		schoolList.add(school1);
@@ -31,7 +35,7 @@ public class C206_CaseStudy {
 
 		while (option != 4) {
 			if (option == 1) {
-				while (option != 7) {
+				while (option != 8) {
 					ParentGuardianMenu.menu();
 					option = Helper.readInt("Enter an option > ");
 
@@ -57,6 +61,9 @@ public class C206_CaseStudy {
 						String paymentIdToDelete = Helper.readString("Enter Payment ID to delete: ");
 						deletePayment(paymentList, paymentIdToDelete); // Changed method name
 					} else if (option == 7) {
+						User u = inputUser();
+			            addUser(userList, u);
+					} else if (option == 8) {
 						System.out.println("Bye!");
 					} else {
 						System.out.println("Invalid option");
@@ -89,6 +96,12 @@ public class C206_CaseStudy {
 					} else if (option == 6) {
 						int vendorContactToDelete = Helper.readInt("Enter Vendor Contact Number to delete: ");
 						AdministratorMenus.deleteExistingVendor(vendorList, vendorContactToDelete);
+					} else if (option == 7) {
+						User u = inputUser();
+			            addUser(userList, u);
+					} else if (option == 8) {
+						String userName = Helper.readString("Enter User name to delete: ");
+						deleteUser(userList, userToDelete);
 					} else if (option == 7) {
 						System.out.println("Quit");
 					} else {
@@ -450,6 +463,145 @@ public class C206_CaseStudy {
         }
         return null;
     }
+    private static User inputUser() {
+	    String username;
+	    String password;
+	    String fullName;
+	    String phoneNumber;
+
+ 
+
+	    username = Helper.readString("Enter Username > ");
+	    password = Helper.readString("Enter Password > ");
+	    fullName = Helper.readString("Enter Full Name > ");
+	    phoneNumber = Helper.readString("Enter Phone Number > ");
+
+ 
+
+	    return new User(username, password, fullName, phoneNumber);
+	}
+
+ 
+
+	public static void addUser(ArrayList<User> userList, User newUser) {
+	    String newUsername = newUser.getUsername();
+
+ 
+
+	    if (newUsername.isEmpty()) {
+	        System.out.println("One of the field is empty. Please try again!");
+	        return;
+	    }
+
+ 
+
+	    for (User user : userList) {
+	        if (user.getUsername().equals(newUsername)) {
+	            System.out.println("Username is already taken. Please choose a different username.\n");
+	            return;
+	        }
+	    }
+
+ 
+
+	    userList.add(newUser);
+	    System.out.println("User added successfully.\n");
+	}
+	private static void viewAllUsers() {
+        if (userList.isEmpty()) {
+            System.out.println("There are no users");
+        } else {
+    		Helper.line(60, "-");
+            System.out.printf("%-15s %-20s %-15s%n", "USERNAME", "FULLNAME", "PHONENUMBER");
+    		Helper.line(60, "-");
+            String userListOutput = retrieveAllUser(userList);
+            System.out.println(userListOutput);
+        }
+    }
+
+ 
+
+    public static String retrieveAllUser(ArrayList<User> userList) {
+        StringBuilder output = new StringBuilder();
+        int count = 1;
+
+ 
+
+        for (User user : userList) {
+            output.append(String.format("%-15s %-20s %-15s%n", user.getUsername(), user.getFullName(),
+                    user.getPhoneNumber()));
+            count++;
+        }
+
+ 
+
+        return output.toString();
+    }
+
+ 
+
+	private static void deleteUser(ArrayList<User> userList, String userNameToDelete){
+		User userToDelete = null;
+
+		// Find the vendor with the specified vendor contactNo
+		for (User user : userList) {
+			if (user.getUsername() == userNameToDelete) {
+				userToDelete = user;
+				break;
+			}
+		}
+
+		// If the school is found, remove it from the list
+		if (userToDelete != null) {
+			userList.remove(userToDelete);
+			System.out.println("User deleted successfully.");
+		} else {
+			System.out.println("User with the specified name not found.");
+		}
+	}
+	
+
+	private static User findUserByUsername(String username) {
+		for (User user : userList) {
+			if (user.getUsername().equals(username)) {
+				return user;
+			}
+		}
+		return null;
+	}
+
+ 
+
+	private static void displayUserDetails(User user) {
+		Helper.line(60, "-");
+		System.out.println("USER DETAILS");
+		Helper.line(60, "-");
+		System.out.println("Username: " + user.getUsername());
+		System.out.println("Full Name: " + user.getFullName());
+		System.out.println("Phone Number: " + user.getPhoneNumber());
+		Helper.line(60, "-");
+	}
+	public static boolean authenticateUser(String username, String password, ArrayList<User> userList) {
+		for (User user : userList) {
+			if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+ 
+
+	public static User searchUser(String username, ArrayList<User> userList) {
+		for (User user : userList) {
+			if (user.getUsername().equals(username)) {
+				return user;
+			}
+		}
+		return null;
+	}
+
+
 
 	public static void setHeader(String header) {
 		System.out.println(header);
