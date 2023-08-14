@@ -17,7 +17,7 @@ public class AdministratorMenus {
 
         int option = 0;
 
-        while (option != OPTION_QUIT) {
+        while (option != 7) {
             AdministratorMenus.Adminmenu();
             option = Helper.readInt("Enter an option > ");
 

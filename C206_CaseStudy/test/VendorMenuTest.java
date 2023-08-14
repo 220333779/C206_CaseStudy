@@ -57,21 +57,22 @@ public class VendorMenuTest {
 	public void testRetrieveAllMenus() {
 		assertNotNull("Test if there is a valid Menu arraylist to retrieve from", menuList);
 
-		// Set up sample data
-		Menu m1 = new Menu(1, "Bento Set", 5);
-		Menu m2 = new Menu(2, "Maggi Mee", 3);
+	    // Set up sample data
+	    Menu m1 = new Menu(1, "Bento Set", 5);
+	    Menu m2 = new Menu(2, "Maggi Mee", 3);
 
-		menuList.add(m1);
-		menuList.add(m2);
+	    menuList.add(m1);
+	    menuList.add(m2);
 
-		String output = VendorMenu.retrieveAllMenus(menuList);
+	    String output = VendorMenu.retrieveAllMenus(menuList);
 
-		// Expected output based on the sample menus and menuList contents
-		String expectedOutput = "MENU LIST" + System.lineSeparator() + "ID    MENU ITEMS    PRICE"
-				+ System.lineSeparator() + "1     Bento Set     5" + System.lineSeparator() + "2     Maggi Mee     3";
-		assertEquals("Test if the retrieveAllMenus method returns the expected output", expectedOutput, output);
+	    String expectedOutput = String.format("%-10s %-30s %-10s%n", "ID", "MENU ITEMS", "PRICE") +
+	            String.format("%-10d %-30s %-10d%n", 1, "Bento Set", 5) +
+	            String.format("%-10d %-30s %-10d%n", 2, "Maggi Mee", 3);
+
+	    assertEquals("Test if the retrieveAllMenus method returns the expected output",
+	            expectedOutput, output);
 	}
-
 	@Test
 	public void testDeleteMenu() {
 		assertNotNull("Test if there is valid Menu arraylist to delete from", menuList);

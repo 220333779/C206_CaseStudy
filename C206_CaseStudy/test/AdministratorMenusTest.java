@@ -87,14 +87,14 @@ public class AdministratorMenusTest {
 		AdministratorMenus.addVendor(vendorList, v1);
 		AdministratorMenus.addVendor(vendorList, v2);
 		// Test that the list is not empty
-		assertEquals("Test that Camcorder arraylist size is 2.", 2, vendorList.size());
+		assertEquals("Test that Vendor arraylist size is 2.", 2, vendorList.size());
 		// Attempt to retrieve the Vendors 
 		allVendor= AdministratorMenus.retrieveAllVendors(vendorList);
 		testOutput = String.format("%-10s %-30d %-10s %-10s\n", "Sam", 12345678, "#05-476", "Chinese Food");
 	    testOutput += String.format("%-10s %-30d %-10s %-10s\n", "John", 10002000, "#06-432", "Japanese Cuisine");
 		// Test that the details are displayed correctly S
 		assertEquals("Test that the display is correct.", testOutput, allVendor);
-	}
+		}
 	
 	@Test
 	public void testDeleteExistingVendor() {

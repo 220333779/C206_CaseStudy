@@ -49,7 +49,7 @@ public class VendorMenu {
 
     public static void viewAllMenus(ArrayList<Menu> menuList) {
         setHeader("VENDOR MENU LIST");
-        String output = String.format("%-5s %-20s %-10s\n", "ID", "MENU NAME", "PRICE");
+        String output = "";
         output += retrieveAllMenus(menuList);
         System.out.println(output);
     }
@@ -59,12 +59,21 @@ public class VendorMenu {
     }
 
     public static String retrieveAllMenus(ArrayList<Menu> menuList) {
-        String output = "";
-        for (Menu menu : menuList) {
-            output += String.format("%-5d %-20s %-10d\n", menu.getMenuID(), menu.getMenuItems(), menu.getMenuItemPrice());
+    	if (menuList.isEmpty()) {
+            return "No menus available.";
         }
+
+        String format = "%-10s %-30s %-10s%n";
+
+        String output = String.format(format, "ID", "MENU ITEMS", "PRICE");
+
+        for (Menu menu : menuList) {
+            output += String.format(format, menu.getMenuID(), menu.getMenuItems(), menu.getMenuItemPrice());
+        }
+
         return output;
     }
+
 
     public static void addMenu(ArrayList<Menu> menuList, Menu m) {
         for (Menu menu : menuList) {
