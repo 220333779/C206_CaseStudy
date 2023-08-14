@@ -36,7 +36,7 @@ public class C206_CaseStudy {
 
 		while (option != 4) {
 			if (option == 1) {
-				while (option != 9) {
+				while (option != 8) {
 					ParentGuardianMenu.menu();
 					option = Helper.readInt("Enter an option > ");
 
@@ -65,8 +65,6 @@ public class C206_CaseStudy {
 						User u = inputUser();
 			            addUser(userList, u);
 					} else if (option == 8) {
-						viewAllUsers(userList);
-					} else if (option == 9) {
 						System.out.println("Bye!");
 					} else {
 						System.out.println("Invalid option");
