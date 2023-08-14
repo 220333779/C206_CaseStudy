@@ -39,6 +39,7 @@ public class AdministratorMenusTest {
 		
 		vendorList = new ArrayList<Vendor>();
 	}
+	@Test
 	public void testAddVendor() {
 		// Item list is not null and it is empty
 		assertNotNull("Test if there is valid Vendor arrayList to add to", vendorList);
@@ -116,7 +117,7 @@ public class AdministratorMenusTest {
 	}
 	//Joel
 	@Test
-	 public void testAddSchool() {
+    public void testAddSchool() {
 	  
 	  assertNotNull("Check if there is valid School arraylist to add to", schoolList);
 	  AdministratorMenus.addSchool(schoolList,S1);
