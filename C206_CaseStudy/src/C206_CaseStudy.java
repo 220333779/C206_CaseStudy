@@ -468,6 +468,7 @@ public class C206_CaseStudy {
         }
         return null;
     }
+    //Zen Yue
     private static User inputUser() {
 	    String username = Helper.readString("Enter Username > ");
 	    String password = Helper.readString("Enter Password > ");
@@ -508,7 +509,7 @@ public class C206_CaseStudy {
 		return uoutput;
 	}
 
-	private static void deleteUser(ArrayList<User> userList, int userPhoneNumberToDelete){
+	public static void deleteUser(ArrayList<User> userList, int userPhoneNumberToDelete){
 		User userToDelete = null;
 
 		// Find the vendor with the specified vendor contactNo

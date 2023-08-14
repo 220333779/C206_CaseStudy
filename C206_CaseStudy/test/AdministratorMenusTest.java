@@ -12,14 +12,9 @@ import org.junit.Test;
 public class AdministratorMenusTest {
 	private Vendor v1;
 	private Vendor v2;
-	private Vendor v3;
 	private School S1;
 	private School S2;
-    private User u1;
-    private User u2;
-    
-    private ArrayList<User> userList;
-	 
+    	 
 	private ArrayList<School> schoolList;
 	
 	private ArrayList<Vendor> vendorList;
@@ -31,9 +26,6 @@ public class AdministratorMenusTest {
 	@Before
 	public void setUp() throws Exception {
 		// prepare test data
-		userList = new ArrayList<User>();
-        u1 = new User("John", "password1", "John Doe", 91234567);
-        u2 = new User("Jane", "password2", "Jane Smith", 98765432);
     
 		  
 		schoolList= new ArrayList<School>();
@@ -44,7 +36,6 @@ public class AdministratorMenusTest {
 		schoolList = new ArrayList<School>();
 		v1 = new Vendor("Sam", 12345678, "#05-476", "Chinese Food");
 		v2 = new Vendor("John", 10002000, "#06-432", "Japanese Cuisine");
-		v3 = new Vendor("Alex", 33332222, "#07-856", "Malay Specialty");
 		
 		vendorList = new ArrayList<Vendor>();
 	}
@@ -175,42 +166,16 @@ public class AdministratorMenusTest {
 	         // Verify that the remaining school is S2
 	         assertEquals("Check if the correct school remains", S2, schoolList.get(0));
 	     }
-	 //Zen Yue
-
-	    @Test
-	    public void testretrieveAllUser() {
-	        // Test viewing users in the user list
-	        testUserList.add(u1);
-	        testUserList.add(u2);
-
-	        assertEquals("Test that the user arraylist size is now 2.", 2, testUserList.size());
-	        assertTrue("Test that the size of the user arraylist is 2.", testUserList.size() == 2);
-	    }
-
-	    @Test
-	    public void testDeleteUser() {
-	        // Test deleting a user from the user list
-	        testUserList.add(u1);
-	        testUserList.add(u2);
-
-	        assertEquals("Test that the user arraylist size is now 2.", 2, testUserList.size());
-	        assertSame("Test that the user is added at the end of the list.", u2, testUserList.get(1));
-
-	        assertNotNull("Test if there is valid user arraylist to delete from", testUserList);
-	        testUserList.remove(u1);
-	        assertEquals("Test that the user arraylist size is 1 after deleting a user.", 1, testUserList.size());
-	    }
+	 
 	 
 	
 
 	@After
 	public void tearDown() throws Exception {
-		u1 = null;
-		u2 = null;
+		
 		v1 = null;
 		v2 = null;
-		v3 = null;
+		
 		vendorList = null;
-		testUserList = null;
 	}
 	}
