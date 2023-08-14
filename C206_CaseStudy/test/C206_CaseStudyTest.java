@@ -7,64 +7,95 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class C206_CaseStudyTest {
-	    private ArrayList<User> userList;
-	    
-	    @Before
-	    public void setUp() throws Exception {
-	        userList = new ArrayList<User>();
-	        User newUser = new User("John", "password1", "John Doe", 91234567);
-	        userList.add(newUser);
-	    }
+	private User u1;
+	private User u2;
+	private ArrayList<User> userList;
 
-	    @Test
-	    public void testUserListNotEmpty() {
-	        assertNotNull("Check if user list is not null", userList);
-	        assertEquals("Check if user list size is 1", 1, userList.size());
-	    }
-
-	    @Test
-	    public void testMainMenuDisplay() {
-	        String expectedOutput = "SCHOOL LUNCH BOX SYSTEM";
-	        assertEquals("Check if main menu display matches", expectedOutput, C206_CaseStudy.getMainMenuDisplay());
-	    }
-
-	    @Test
-	    public void testAddUser() {
-	        // Test if a new user can be added to the user list
-	        User newUser = new User("Jane", "password2", "Jane Smith", 98765432);
-	        C206_CaseStudy.addUser(userList, newUser);
-	        assertEquals("Check if user list size is 2 after adding a new user", 2, userList.size());
-	        assertSame("Check if the new user is added", newUser, userList.get(1));
-	    }
-
-	    @Test
-	    public void testAuthenticateUser() {
-	        // Test if user authentication works with valid credentials
-	        assertTrue("Check if authentication works for valid user", C206_CaseStudy.authenticateUser("John", "password1", userList));
-	        
-	        // Test if user authentication fails with invalid credentials
-	        assertFalse("Check if authentication fails for invalid user", C206_CaseStudy.authenticateUser("Jane", "password2", userList));
-	    }
-
-	    @Test
-	    public void testSearchUser() {
-	        // Test if a user can be found by their username
-	        User user = C206_CaseStudy.searchUser("John", userList);
-	        assertNotNull("Check if user is found by username", user);
-	        assertEquals("Check if the found user's username matches", "John", user.getUsername());
-	    }
-
-	    @Test
-	    public void testDeleteUser() {
-	        // Test if a user can be deleted from the user list
-	        User userToDelete = userList.get(0);
-	        C206_CaseStudy.deleteUser(userList, userToDelete);
-	        assertEquals("Check if user list size is 0 after deleting the user", 0, userList.size());
-	    }
-
-
-	    @After
-	    public void tearDown() throws Exception {
-	        userList = null;
-	    }
+	@Before
+	public void setUp() throws Exception {
+		userList = new ArrayList<User>();
+		u1 = new User("John", "password1", "John Doe", 91234567);
+		u2 = new User("Jane", "password2", "Jane Smith", 98765432);
 	}
+
+	@Test
+	public void testAddUser() {
+		// User list is not null and it is empty
+		assertNotNull("Test if there is valid User arrayList to add to", userList);
+		assertEquals("Test that the User arrayList is empty.", 0, userList.size());
+		// Given an empty list, after adding 1 item, the size of the list is 1
+		C206_CaseStudy.addUser(userList, u1);
+		assertEquals("Test that the User ArrayList size is 1.", 1, userList.size());
+
+		// Add an item
+		C206_CaseStudy.addUser(userList, u2);
+		assertEquals("Test that the User arraylist size is now 2.", 2, userList.size());
+		// The item just added is as same as the last item in the list
+		assertSame("Test that User is added to the end of the list.", u2, userList.get(1));
+
+		// Add an item that already exists in the list
+		C206_CaseStudy.addUser(userList, u2);
+		assertEquals("Test that the User arraylist size is unchange.", 2, userList.size());
+
+		// Add an item that has missing detail
+		User u_missing = new User("Ben", "", "Ben Tan", 92478456);
+		C206_CaseStudy.addUser(userList, u_missing);
+		assertEquals("Test that the User arraylist size is unchange.", 2, userList.size());
+	}
+	@Test
+	public void testRetrieveAllUser() {
+		//Test Case 1
+		// Test if Item list is not null and empty
+		assertNotNull("Test if there is valid User arraylist to add to", userList);
+		assertEquals("Test that the User arraylist is empty.", 0, userList.size());
+		// Attempt to retrieve the Vendors 
+		String allUser= C206_CaseStudy.retrieveAllUser(userList);
+		String testOutput = "";
+		// Test if the output is empty
+		assertEquals("Test that nothing is displayed", testOutput, allUser);
+		
+		//Test Case 2
+		C206_CaseStudy.addUser(userList, u1);
+		C206_CaseStudy.addUser(userList, u2);
+		// Test that the list is not empty
+		assertEquals("Test that User arraylist size is 2.", 2, userList.size());
+		// Attempt to retrieve the Vendors 
+		allUser= C206_CaseStudy.retrieveAllUser(userList);
+		testOutput = String.format("%-10s %-20s %-10s %-10d\n", "John", "password1", "John Doe", 91234567);
+	    testOutput += String.format("%-10s %-20s %-10s %-10d\n", "Jane", "password2", "Jane Smith", 98765432);
+		// Test that the details are displayed correctly S
+		assertEquals("Test that the display is correct.", testOutput, allUser);
+		}
+	@Test
+	public void testDeleteUser() {
+		//Test case 1
+		//Delete an existing Vendor
+		assertNotNull("Test if there is valid User arraylist to delete from", userList);
+		C206_CaseStudy.addUser(userList, u1);
+		C206_CaseStudy.addUser(userList, u2);
+		assertEquals("Test that the User arraylist size is 2.", 2, userList.size());
+		//Given a vendor list with 2 item, after deleting the item, the size of the list is 1.
+		C206_CaseStudy.deleteUser(userList, 91234567);
+		assertEquals("Test that the User arraylist size is 1.", 1, userList.size());
+		
+		//Test case 2
+		//Delete non-existent vendor
+		C206_CaseStudy.deleteUser(userList, 77777777);
+		//Test that you cannot delete a vendor that does not exist
+		assertEquals("Test that userList size is empty after trying to delete non-existent user"
+				, 1, userList.size());
+		//Test case 3
+		//Delete last vendor in the list
+		assertEquals("Test that the User arraylist size is 1.", 1, userList.size());
+		//Given a vendor list with 1 item, after deleting the item, the size of the list is empty.
+		AdministratorMenus.deleteUser(userList, 98765432);
+		assertEquals("Test that the User arraylist size is 0.", 0, userList.size());
+		
+		
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		userList = null;
+	}
+}

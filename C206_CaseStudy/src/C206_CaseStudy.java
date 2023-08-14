@@ -508,8 +508,6 @@ public class C206_CaseStudy {
 		return uoutput;
 	}
 
- 
-
 	private static void deleteUser(ArrayList<User> userList, int userPhoneNumberToDelete){
 		User userToDelete = null;
 

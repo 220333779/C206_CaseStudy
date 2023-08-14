@@ -18,7 +18,7 @@ public class AdministratorMenusTest {
     private User u1;
     private User u2;
     
-    private ArrayList<User> testUserList;
+    private ArrayList<User> userList;
 	 
 	private ArrayList<School> schoolList;
 	
@@ -31,9 +31,9 @@ public class AdministratorMenusTest {
 	@Before
 	public void setUp() throws Exception {
 		// prepare test data
-		testUserList = new ArrayList<User>();
-        u1 = new User("John", "password1", "John Doe", "91234567");
-        u2 = new User("Jane", "password2", "Jane Smith", "98765432");
+		userList = new ArrayList<User>();
+        u1 = new User("John", "password1", "John Doe", 91234567);
+        u2 = new User("Jane", "password2", "Jane Smith", 98765432);
     
 		  
 		schoolList= new ArrayList<School>();
@@ -142,7 +142,7 @@ public class AdministratorMenusTest {
 	  // Test if Item list is not null but empty -boundary
 	  assertNotNull("Test if there is valid Camcorder arraylist to retrieve item", schoolList);
 	  
-	  //test if the list of camcorders retrieved from the SourceCentre is empty - boundary
+	  //test if the list of schools retrieved from the SourceCentre is empty - boundary
 	  String allSchools= AdministratorMenus.retrieveAllSchools(schoolList);
 	  String testOutput = "";
 	  assertEquals("Check that ViewAllCamcorderlist", testOutput, allSchools);
@@ -152,7 +152,7 @@ public class AdministratorMenusTest {
 	  AdministratorMenus.addSchool(schoolList, S2);
 	  assertEquals("Test that Camcorder arraylist size is 2", 2, schoolList.size());
 	  
-	  //test if the expected output string same as the list of camcorders retrieved from the SourceCentre 
+	  //test if the expected output string same as the list of schools retrieved from the SourceCentre 
 	  allSchools= AdministratorMenus.retrieveAllSchools(schoolList);
 	  testOutput = String.format("%-10s %-30s %-10s\n", "1", "1", 1);
 	  testOutput += String.format("%-10s %-30s %-10s\n", "2", "2", 2);
@@ -176,22 +176,9 @@ public class AdministratorMenusTest {
 	         assertEquals("Check if the correct school remains", S2, schoolList.get(0));
 	     }
 	 //Zen Yue
-	 @Test
-	    public void testAddUser() {
-	        // Test adding users to the user list
-	        assertNotNull("Test if there is valid user arraylist to add to", testUserList);
-	        
-	        testUserList.add(u1);
-	        assertEquals("Test that the user arraylist size is 1.", 1, testUserList.size());
-	        assertSame("Test that the user is added at the first position.", u1, testUserList.get(0));
-
-	        testUserList.add(u2);
-	        assertEquals("Test that the user arraylist size is now 2.", 2, testUserList.size());
-	        assertSame("Test that the user is added at the end of the list.", u2, testUserList.get(1));
-	    }
 
 	    @Test
-	    public void testViewUser() {
+	    public void testretrieveAllUser() {
 	        // Test viewing users in the user list
 	        testUserList.add(u1);
 	        testUserList.add(u2);
