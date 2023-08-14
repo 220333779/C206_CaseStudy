@@ -177,7 +177,9 @@ public class ParentGuardianMenu {
   System.out.println("4. Show payment"); 
   System.out.println("5. Add payment"); 
   System.out.println("6. Delete payment"); 
-  System.out.println("7. Quit");
+  System.out.println("7. Add User");
+  System.out.println("8. View All Users");
+  System.out.println("9. Quit");
   Helper.line(80, "-");
 
  }

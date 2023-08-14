@@ -188,7 +188,10 @@ public class AdministratorMenus {
         System.out.println("4. Display Vendor List");
 		System.out.println("5. Add a Vendor");
 		System.out.println("6. Delete existing Vendor From System");
-        System.out.println("7. Quit");
+        System.out.println("7. Add User");
+        System.out.println("8. Delete User from User List");
+        System.out.println("9. View All Users");
+        System.out.println("10. Quit");
         Helper.line(80, "-");
     }
 

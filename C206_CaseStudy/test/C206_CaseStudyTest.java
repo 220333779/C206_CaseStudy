@@ -12,7 +12,7 @@ public class C206_CaseStudyTest {
 	    @Before
 	    public void setUp() throws Exception {
 	        userList = new ArrayList<User>();
-	        User newUser = new User("John", "password1", "John Doe", "91234567");
+	        User newUser = new User("John", "password1", "John Doe", 91234567);
 	        userList.add(newUser);
 	    }
 
@@ -31,7 +31,7 @@ public class C206_CaseStudyTest {
 	    @Test
 	    public void testAddUser() {
 	        // Test if a new user can be added to the user list
-	        User newUser = new User("Jane", "password2", "Jane Smith", "98765432");
+	        User newUser = new User("Jane", "password2", "Jane Smith", 98765432);
 	        C206_CaseStudy.addUser(userList, newUser);
 	        assertEquals("Check if user list size is 2 after adding a new user", 2, userList.size());
 	        assertSame("Check if the new user is added", newUser, userList.get(1));

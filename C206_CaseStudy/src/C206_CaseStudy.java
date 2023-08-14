@@ -3,7 +3,7 @@ import java.util.ArrayList;
 //Zen yue
 public class C206_CaseStudy {
 
-	private static ArrayList<User> userList = new ArrayList<>();
+
 
 	public static void main(String[] args) {
 		ArrayList<Order> orderList = new ArrayList<Order>();
@@ -14,11 +14,12 @@ public class C206_CaseStudy {
 		paymentList.add(payment1);
 		ArrayList<School> schoolList = new ArrayList<School>();
 		ArrayList<Vendor> vendorList = new ArrayList<Vendor>();
+		ArrayList<User> userList = new ArrayList<>();
 		ArrayList<Menu> menuList = new ArrayList<Menu>();
         menuList.add(new Menu(1, "Bento Set", 5));
         menuList.add(new Menu(2, "Maggi Mee", 3));
-        User newUser1 = new User("John", "password1", "John Doe", "91234567");
-		User newUser2 = new User("Jane", "password2", "Jane Doe", "97654321");
+        User newUser1 = new User("John", "password1", "John Doe", 91234567);
+		User newUser2 = new User("Jane", "password2", "Jane Doe", 97654321);
 		userList.add(newUser1);
 		userList.add(newUser2);
 
@@ -27,7 +28,7 @@ public class C206_CaseStudy {
 		int option = 0;
 		
 
-		User newUser = new User("John", "password1", "John Doe", "91234567");
+		User newUser = new User("John", "password1", "John Doe", 91234567);
 		userList.add(newUser);
 
 		displayMainMenu();
@@ -35,7 +36,7 @@ public class C206_CaseStudy {
 
 		while (option != 4) {
 			if (option == 1) {
-				while (option != 8) {
+				while (option != 9) {
 					ParentGuardianMenu.menu();
 					option = Helper.readInt("Enter an option > ");
 
@@ -64,6 +65,8 @@ public class C206_CaseStudy {
 						User u = inputUser();
 			            addUser(userList, u);
 					} else if (option == 8) {
+						viewAllUsers(userList);
+					} else if (option == 9) {
 						System.out.println("Bye!");
 					} else {
 						System.out.println("Invalid option");
@@ -73,7 +76,7 @@ public class C206_CaseStudy {
 				}
 			}
 			if (option == 2) {
-				while (option != 7) {
+				while (option != 10) {
 					AdministratorMenus.Adminmenu();
 					option = Helper.readInt("Enter an option > ");
 
@@ -100,9 +103,11 @@ public class C206_CaseStudy {
 						User u = inputUser();
 			            addUser(userList, u);
 					} else if (option == 8) {
-						String userName = Helper.readString("Enter User name to delete: ");
-						deleteUser(userList, userToDelete);
-					} else if (option == 7) {
+						int userPhoneNumberToDelete = Helper.readInt("Enter User phone number to delete: ");
+						deleteUser(userList, userPhoneNumberToDelete);
+					} else if (option == 9) {
+						viewAllUsers(userList);
+					} else if (option == 10) {
 						System.out.println("Quit");
 					} else {
 						System.out.println("Invalid Option");
@@ -464,88 +469,53 @@ public class C206_CaseStudy {
         return null;
     }
     private static User inputUser() {
-	    String username;
-	    String password;
-	    String fullName;
-	    String phoneNumber;
+	    String username = Helper.readString("Enter Username > ");
+	    String password = Helper.readString("Enter Password > ");
+	    String fullName = Helper.readString("Enter Full Name > ");
+	    int phoneNumber = Helper.readInt("Enter Phone Number > ");
 
- 
-
-	    username = Helper.readString("Enter Username > ");
-	    password = Helper.readString("Enter Password > ");
-	    fullName = Helper.readString("Enter Full Name > ");
-	    phoneNumber = Helper.readString("Enter Phone Number > ");
-
- 
-
-	    return new User(username, password, fullName, phoneNumber);
+	    User u = new User(username, password, fullName, phoneNumber);
+	    return u;
 	}
-
- 
-
-	public static void addUser(ArrayList<User> userList, User newUser) {
-	    String newUsername = newUser.getUsername();
-
- 
-
-	    if (newUsername.isEmpty()) {
-	        System.out.println("One of the field is empty. Please try again!");
-	        return;
-	    }
-
- 
-
-	    for (User user : userList) {
-	        if (user.getUsername().equals(newUsername)) {
-	            System.out.println("Username is already taken. Please choose a different username.\n");
-	            return;
-	        }
-	    }
-
- 
-
-	    userList.add(newUser);
-	    System.out.println("User added successfully.\n");
+	public static void addUser(ArrayList<User> userList, User u) {
+	    String newUsername = u.getUsername();
+	    for (int i = 0; i < userList.size(); i ++) {
+	    	String user = userList.get(i).getUsername();
+			if (user.equalsIgnoreCase(newUsername) )
+				return;
+		}
+		if ((u.getPassword().isEmpty()) || (u.getFullName().isEmpty()) || (u.getPhoneNumber() == 0) ) {
+			return;
+		}
+		
+		userList.add(u);
 	}
-	private static void viewAllUsers() {
-        if (userList.isEmpty()) {
-            System.out.println("There are no users");
-        } else {
-    		Helper.line(60, "-");
-            System.out.printf("%-15s %-20s %-15s%n", "USERNAME", "FULLNAME", "PHONENUMBER");
-    		Helper.line(60, "-");
-            String userListOutput = retrieveAllUser(userList);
-            System.out.println(userListOutput);
-        }
-    }
-
- 
-
+	private static void viewAllUsers(ArrayList<User> userList) {
+		setHeader("USER LIST");
+		String uoutput = String.format("%-10s %-20s %-10s %-10s \n", "Username", "Password",
+				"Full Name", "PhoneNumber");
+		uoutput += retrieveAllUser(userList);
+		System.out.println(uoutput);
+	}
     public static String retrieveAllUser(ArrayList<User> userList) {
-        StringBuilder output = new StringBuilder();
-        int count = 1;
+    	String uoutput = "";
+		// write your code here
+		for (int i = 0; i < userList.size(); i++) {
+			uoutput += String.format("%-10s %-20s %-10s %-10d\n", userList.get(i).getUsername(),
+					userList.get(i).getPassword(), userList.get(i).getFullName(), userList.get(i).getPhoneNumber());
+
+		}
+		return uoutput;
+	}
 
  
 
-        for (User user : userList) {
-            output.append(String.format("%-15s %-20s %-15s%n", user.getUsername(), user.getFullName(),
-                    user.getPhoneNumber()));
-            count++;
-        }
-
- 
-
-        return output.toString();
-    }
-
- 
-
-	private static void deleteUser(ArrayList<User> userList, String userNameToDelete){
+	private static void deleteUser(ArrayList<User> userList, int userPhoneNumberToDelete){
 		User userToDelete = null;
 
 		// Find the vendor with the specified vendor contactNo
 		for (User user : userList) {
-			if (user.getUsername() == userNameToDelete) {
+			if (user.getPhoneNumber() == userPhoneNumberToDelete) {
 				userToDelete = user;
 				break;
 			}
@@ -559,49 +529,6 @@ public class C206_CaseStudy {
 			System.out.println("User with the specified name not found.");
 		}
 	}
-	
-
-	private static User findUserByUsername(String username) {
-		for (User user : userList) {
-			if (user.getUsername().equals(username)) {
-				return user;
-			}
-		}
-		return null;
-	}
-
- 
-
-	private static void displayUserDetails(User user) {
-		Helper.line(60, "-");
-		System.out.println("USER DETAILS");
-		Helper.line(60, "-");
-		System.out.println("Username: " + user.getUsername());
-		System.out.println("Full Name: " + user.getFullName());
-		System.out.println("Phone Number: " + user.getPhoneNumber());
-		Helper.line(60, "-");
-	}
-	public static boolean authenticateUser(String username, String password, ArrayList<User> userList) {
-		for (User user : userList) {
-			if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
- 
-
-	public static User searchUser(String username, ArrayList<User> userList) {
-		for (User user : userList) {
-			if (user.getUsername().equals(username)) {
-				return user;
-			}
-		}
-		return null;
-	}
-
-
 
 	public static void setHeader(String header) {
 		System.out.println(header);

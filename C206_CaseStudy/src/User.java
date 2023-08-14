@@ -4,9 +4,9 @@ public class User {
   private String username;
     private String password;
     private String fullName;
-    private String phoneNumber;
+    private int phoneNumber;
 
-    public User(String username, String password, String fullName, String phoneNumber) {
+    public User(String username, String password, String fullName, int phoneNumber) {
         this.username = username;
         this.password = password;
         this.fullName = fullName;
@@ -25,7 +25,7 @@ public class User {
         return fullName;
     }
 
-    public String getPhoneNumber() {
+    public int getPhoneNumber() {
         return phoneNumber;
     }
 
